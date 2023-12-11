@@ -6,4 +6,6 @@ export class GlobalConstants{
 
     // Varialbe 
     public static error: string ="error";
+    // Unathorized 
+    public static nnauthorized: string ="YOu are not authorized to access";
 }
