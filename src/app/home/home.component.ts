@@ -17,17 +17,15 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private userService: UserService
-    // private
   ) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token') !== null){
-      this.userService.checkToken().subscribe((res:any)=>{
-        this.router.navigate(['/cafe/dashboard']);
+    if(localStorage.getItem('token') != null){
+      this.userService.checkToken().subscribe((response:any)=>{
+        this.router.navigate(['/pass/dashboard']);
       },(error:any)=>{
         console.log(error)
-      })
-
+      });
     }
   }
 

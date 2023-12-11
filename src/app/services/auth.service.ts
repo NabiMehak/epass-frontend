@@ -12,7 +12,6 @@ export class AuthService {
   constructor(private route:Router) { }
 
  public isAuthenticated(): boolean {
-  console.log(">>>>>>>>>>>>>>>>>>>")
   const token = localStorage.getItem('token');
   if(!token){
     this.route.navigate(['/']);

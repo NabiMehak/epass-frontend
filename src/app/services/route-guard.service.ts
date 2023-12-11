@@ -10,15 +10,14 @@ import { GlobalConstants } from '../shared/global-constants';
 })
 export class RouteGuardService {
 
-  constructor(public auth: AuthService,
-    public route : Router,
-    private snackbarService:SnackbarService) { }
+  constructor(
+    public auth: AuthService,
+    public router : Router,
+    private snackbarService:SnackbarService
+    ) { }
 
     canActivate(route:ActivatedRouteSnapshot): boolean{
-      console.log(">>>>>>>>>>>>>>>>>>>")
-      console.log(route,">>>>>>>>>>>>>>>>>>>"); 
       let expectedRoleArray = route.data;
-      console.log(expectedRoleArray,">>>>>>>>>>>>>>>>>>>");
       expectedRoleArray = expectedRoleArray.expectedRole;
 
       const token:any = localStorage.getItem('token');
@@ -29,11 +28,10 @@ export class RouteGuardService {
       }
       catch(err){
         localStorage.clear();
-        this.route.navigate(['/']);
+        this.router.navigate(['/']);
       }
 
       let checkRole = false;
-      console.log(expectedRoleArray)
 
       for (let i = 0; i < expectedRoleArray.length; i++) {
        if(expectedRoleArray[i] == tokenPayload.role){
@@ -44,12 +42,12 @@ export class RouteGuardService {
         if(this.auth.isAuthenticated() && checkRole){
           return true;
         }
-        this.snackbarService.openSnackBar(GlobalConstants.nnauthorized,GlobalConstants.error);
-        this.route.navigate(['/cafe/dashboard']);
+        this.snackbarService.openSnackBar(GlobalConstants.unauthorized,GlobalConstants.error);
+        this.router.navigate(['/pass/dashboard']);
         return false;
       }
       else{
-        this.route.navigate(['/']);
+        this.router.navigate(['/']);
         localStorage.clear();
         return false;
       }
